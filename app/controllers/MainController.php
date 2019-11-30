@@ -12,7 +12,7 @@ class MainController
 {
     public function index()
     {
-        echo '<h1>View: Index Page</h1>';
+        require '../app/views/index.view.php';
     }
 
     public function home($vars)
@@ -29,18 +29,9 @@ class MainController
 
     public function news($vars)
     {
-        switch (empty($vars['id']))
-        {
-            case true:
-                $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
-                $posts = $queryBuilder->getAll('posts');
-                require '../app/views/posts.view.php';
-                break;
-            case false:
-                $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
-                $posts = $queryBuilder->getOne('posts', $vars['id']);
-                require '../app/views/posts.view.php';
-                break;
-        }
+        d($vars);
+        $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
+        $posts = $queryBuilder->getAll('posts');
+        require '../app/views/posts.view.php';
     }
 }
