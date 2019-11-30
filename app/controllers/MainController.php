@@ -30,8 +30,18 @@ class MainController
     public function news($vars)
     {
         d($vars);
-        $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
-        $posts = $queryBuilder->getAll('posts');
-        require '../app/views/posts.view.php';
+        switch (empty($vars['id']))
+        {
+            case true:
+                $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
+                $posts = $queryBuilder->getAll('posts');
+                require '../app/views/posts.view.php';
+                break;
+            case false:
+                $queryBuilder = new QueryBuilder(DataBase::getPDO(), new QueryFactory());
+                $posts = $queryBuilder->getOne('posts', $vars['id']);
+                require '../app/views/posts.view.php';
+                break;
+        }
     }
 }
