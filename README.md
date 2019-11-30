@@ -2,74 +2,86 @@
 <h1>Мои инструменты QueryBuilder и Route храняться в директории [vendor/diaskoldas/..]</h1>
 
 <h2>Инструмент по работе с базой данных QueryBuilder [vendor/diaskoldas/my-querybuilder]:</h2>
-<p>1) Состоит из двух файлов QueryBuilder.php и QueryFactory.php</p>
-<p>2) Их нужно подключить к проекту</p>
-<p>3) Для стандартных запросов используйте экземпляр класса MyQueryBuilder\QueryBuilder:</p>
-<p>Код подключения:</p>
+<p><b>1) Состоит из двух файлов QueryBuilder.php и QueryFactory.php</b></p>
+<p><b>2) Их нужно подключить к проекту</b></p>
+<p><b>3) Для стандартных запросов используйте экземпляр класса MyQueryBuilder\QueryBuilder:</b></p>
 <ul>
-<li>$queryBuilder = new QueryBuilder(
-new PDO('mysql:host=localhost;dbname=app2;charset=utf8;','root',''),
-new QueryFactory());
+<li>
+Код подключения:
+<ul>
+<li>$queryBuilder = new QueryBuilder( new PDO('mysql:host=localhost;dbname=app2;charset=utf8;','root',''), new QueryFactory());
 </li>
 </ul>
-<p>Он принемает два параметра:</p>
+</li>
+<li>
+Он принемает два параметра:
 <ul>
-<li>1) Экземпляр готового к работе класса PDO</li>
-<li>2) Экземпляр класса MyQueryBuilder\QueryFactory</li>
+<li>Экземпляр готового к работе класса PDO</li>
+<li>Экземпляр класса MyQueryBuilder\QueryFactory</li>
 </ul>
-<p>Методы возвращают:</p>
+</li>
+<li>
+Методы возвращают:
 <ul>
 <li>Массив данных полученных с базы</li>
 </ul>
-<p>Методы:</p>
-<ul>
-<li>1) Возвращает одну запись с таблицы: $queryBuilder->getOne(string $table_name, integer $id)</li>
-<li>2) Возвращает все записи с таблицы: $queryBuilder->getAll(string $table_name)</li>
-<li>3) Удаляет одну запись с таблицы: $queryBuilder->delete(string $table_name, integer $id)</li>
+</li>
 <li>
-4) Добавляет одну запись в таблицу: $queryBuilder->add(string $table_name, array $data)
+Методы:
+<ul>
+<li>Возвращает одну запись с таблицы: $queryBuilder->getOne(string $table_name, integer $id)</li>
+<li>Возвращает все записи с таблицы: $queryBuilder->getAll(string $table_name)</li>
+<li>Удаляет одну запись с таблицы: $queryBuilder->delete(string $table_name, integer $id)</li>
+<li>
+Добавляет одну запись в таблицу: $queryBuilder->add(string $table_name, array $data)
 <ul>
 <li>Формат записи второго параметра $data: Array('название столбца в таблице' => 'значение')</li>
 </ul>
 </li>
 <li>
-5) Обновляет значения одной записи в таблице: $queryBuilder->update(string $table, array $data, integer $id)
+Обновляет значения одной записи в таблице: $queryBuilder->update(string $table, array $data, integer $id)
 <ul>
 <li>Формат записи второго параметра $data: Array('название столбца в таблице' => 'значение')</li>
 </ul>
 </li>
 </ul>
-<p>4) Для построения своих sql запросов используйте экземпляр класса MyQueryBuilder\QueryFactory:</p>
-<p>Код подключения:</p>
+</li>
+</ul>
+<p><b>4) Для построения своих sql запросов используйте экземпляр класса MyQueryBuilder\QueryFactory:</b></p>
+<ul>
+<li>
+Код подключения:
 <ul>
 <li>$queryFactory = new QueryFactory();</li>
 </ul>
-<p>Методы возвращают:</p>
+</li>
+<li>
+Методы возвращают:
 <ul>
 <li>Сгенерированную строку SQL запроса</li>
 </ul>
-<p>Примечания:</p>
+</li>
+<li>
+Примечания:
 <ul>
 <li>Всегда перед построением новой строки SQL запроса, объявляйте об этом методом: $queryFactory->newSelect()</li>
 <li>
 Пример того как выглядит построения двух строк SQL запросов:
 <ul>
 <li>
-$queryFactory->newSelect();<br>
-$queryFactory
-->cols(['*'])
-->from('posts');
+$queryFactory->newSelect();
+<br> $queryFactory ->cols(['*']) ->from('posts');
 </li>
 <li>
-$queryFactory->newSelect();<br>
-$queryFactory
-->cols(['*'])
-->from('users');
+$queryFactory->newSelect();
+<br> $queryFactory ->cols(['*']) ->from('users');
 </li>
 </ul>
 </li>
 </ul>
-<p>Методы:</p>
+</li>
+<li>
+Методы:
 <ul>
 <li>1) Объявит о построении новой строки SQL: $queryFactory->newSelect()</li>
 <li>2) Возвратит строку "INSERT INTO $table": $queryFactory->insert(string $table)</li>
@@ -124,42 +136,43 @@ $queryFactory
 <li>Возвратит готовую SQL строку: $queryFactory->getStatement()</li>
 <li>Возвратит готовый массив данных для меток: $queryFactory->getBindParams()</li>
 </ul>
-<p>Пример запроса:</p>
-<p>
+</li>
+<li>
+Пример запроса:
+<ul>
+<li>
 $this->queryFactory->newSelect();<br>
-$this->queryFactory
-->cols(['*'])
-->from('posts');<br>
-
+$this->queryFactory ->cols(['*']) ->from('posts');<br>
 $sth = $this->pdo->prepare($this->queryFactory->getStatement());<br>
 $sth->execute($this->queryFactory->getBindParams());<br>
-
-$posts = $sth->fetchAll(PDO::FETCH_ASSOC);<br>
-</p>
-
+$posts = $sth->fetchAll(PDO::FETCH_ASSOC);
+</li>
+</ul>
+</li>
+</ul>
 
 <h2>Инструмент по работе с http запросами "Маршрутизатор" Route [vendor/diaskoldas/my-route]:</h2>
 
-<p>1) состоит из трех файлов: Route.php, Parser.php, Helper.php</p>
+<p><b>1) состоит из трех файлов: Route.php, Parser.php, Helper.php</b></p>
 <ul>
 <li>Route.php - происходят все главные процессы для роутинга</li>
 <li>Parser.php - парсит данные для работы роутинга</li>
 <li>Helper.php - просто маленький помошник который можно не использовать</li>
 </ul>
-<p>2) Их нужно подключить к проекту</p>
-<p>3) Для работы используйте сам класс MyRoute\Route</p>
-<p>4) Основное что делает MyRoute\Route это два действия:</p>
+<p><b>2) Их нужно подключить к проекту</b></p>
+<p><b>3) Для работы используйте сам класс MyRoute\Route</b></p>
+<p><b>4) Основное что делает MyRoute\Route это два действия:</b></p>
 <ul>
 <li>Добавляет/Регистрирует ваши шаблоны для http запросов</li>
 <li>Проверяет http запрос пользователя на соответствие шаблонам которые вы добавили/зарегистрировали</li>
 </ul>
-<p>5) Примеры использования роутов:</p>
+<p><b>5) Подробно о работе с роутом:</b></p>
 <ul>
 <li>
 <p>Добавление роутов:</p>
 <ul>
 <li>
-Route::addRoute("GET","/home", [MainController::class, 'index']);
+Route::addRoute("GET","/home", [$handler, $action]);
 <ul>
 <li>Первый параметр это тип запроса: "POST","GET"</li>
 <li>
@@ -170,7 +183,7 @@ Route::addRoute("GET","/home", [MainController::class, 'index']);
 <li>Нестатичный гибкий шаблон с необязательными параметрами "[/{id:\d+}]": "/gallery/{tag_name}[/{id:\d+}]"</li>
 </ul>
 </li>
-<li>Третий параметр это массив из двух элементов (первый это класс, второй метод этого класса)</li>
+<li>Третий параметр это массив из двух элементов ($handler это класс, $action метод этого класса)</li>
 </ul>
 </li>
 </ul>
@@ -207,7 +220,6 @@ $routeInfo будет содержать в себе:
 </li>
 </ul>
 </li>
-
 </ul>
 </li>
 </ul>
