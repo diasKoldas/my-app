@@ -1,4 +1,4 @@
-<h1>Мои инструменты QueryBuilder и Route храняться в директории [vendor/diaskoldas/..]</h1>
+    <h1>Мои инструменты QueryBuilder и Route храняться в директории [vendor/diaskoldas/..]</h1>
 
     <div>
         <h2>Инструмент по работе с базой данных QueryBuilder [vendor/diaskoldas/my-querybuilder]:</h2>
@@ -8,12 +8,9 @@
         <p>Код подключения:</p>
         <div>
             <ul>
-                <li>
-                    <code>
-                        $queryBuilder = new QueryBuilder(
-                        new PDO('mysql:host=localhost;dbname=app2;charset=utf8;','root',''),
-                        new QueryFactory());
-                    </code>
+                <li>$queryBuilder = new QueryBuilder(
+                    new PDO('mysql:host=localhost;dbname=app2;charset=utf8;','root',''),
+                    new QueryFactory());
                 </li>
             </ul>
         </div>
@@ -60,20 +57,16 @@
                 Пример того как выглядит построения двух строк SQL запросов:
                 <ul>
                     <li>
-                        <code>
-                            $queryFactory->newSelect();<br>
-                            $queryFactory
-                            ->cols(['*'])
-                            ->from('posts');
-                        </code>
+                        $queryFactory->newSelect();<br>
+                        $queryFactory
+                        ->cols(['*'])
+                        ->from('posts');
                     </li>
                     <li>
-                        <code>
-                            $queryFactory->newSelect();<br>
-                            $queryFactory
-                            ->cols(['*'])
-                            ->from('users');
-                        </code>
+                        $queryFactory->newSelect();<br>
+                        $queryFactory
+                        ->cols(['*'])
+                        ->from('users');
                     </li>
                 </ul>
             </li>
@@ -163,13 +156,11 @@
         <li>Добавляет/Регистрирует ваши шаблоны для http запросов</li>
         <li>Проверяет http запрос пользователя на соответствие шаблонам которые вы добавили/зарегистрировали</li>
     </ul>
-    <p>5) </p>
+    <p>5) Примеры добавления роутов:</p>
     <ul>
-        <li>
-            Для использования :
-            <ul>
-                <li></li>
-            </ul>
-        </li>
+        <li>Route::addRoute("GET","/", [MainController::class, 'index']);</li>
+        <li>Route::addRoute("GET","/home", [MainController::class, 'home']);</li>
+        <li>Route::addRoute("GET","/about/{user}[/{age:\d+}]", [MainController::class, 'about']);</li>
+        <li>Route::addRoute("GET","/posts[/{id:\d+}]", [MainController::class, 'news']);</li>
     </ul>
     <p></p>
