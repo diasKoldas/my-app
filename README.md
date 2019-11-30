@@ -7,27 +7,27 @@
 <p><b>3) Для стандартных запросов используйте экземпляр класса MyQueryBuilder\QueryBuilder:</b></p>
 <ul>
 <li>
-Код подключения:
+<b>Код подключения:</b>
 <ul>
 <li>$queryBuilder = new QueryBuilder( new PDO('mysql:host=localhost;dbname=app2;charset=utf8;','root',''), new QueryFactory());
 </li>
 </ul>
 </li>
 <li>
-Он принемает два параметра:
+<b>Он принемает два параметра:</b>
 <ul>
 <li>Экземпляр готового к работе класса PDO</li>
 <li>Экземпляр класса MyQueryBuilder\QueryFactory</li>
 </ul>
 </li>
 <li>
-Методы возвращают:
+<b>Методы возвращают:</b>
 <ul>
 <li>Массив данных полученных с базы</li>
 </ul>
 </li>
 <li>
-Методы:
+<b>Методы:</b>
 <ul>
 <li>Возвращает одну запись с таблицы: $queryBuilder->getOne(string $table_name, integer $id)</li>
 <li>Возвращает все записи с таблицы: $queryBuilder->getAll(string $table_name)</li>
@@ -50,45 +50,45 @@
 <p><b>4) Для построения своих sql запросов используйте экземпляр класса MyQueryBuilder\QueryFactory:</b></p>
 <ul>
 <li>
-Код подключения:
+<b>Код подключения:</b>
 <ul>
 <li>$queryFactory = new QueryFactory();</li>
 </ul>
 </li>
 <li>
-Методы возвращают:
+<b>Методы возвращают:</b>
 <ul>
 <li>Сгенерированную строку SQL запроса</li>
 </ul>
 </li>
 <li>
-Примечания:
+<b>Примечания:</b>
 <ul>
 <li>Всегда перед построением новой строки SQL запроса, объявляйте об этом методом: $queryFactory->newSelect()</li>
 <li>
 Пример того как выглядит построения двух строк SQL запросов:
 <ul>
 <li>
-$queryFactory->newSelect();<br>
-$queryFactory ->cols(['*']) ->from('posts');<br>
-$sql = $this->queryFactory->getStatement()
+$queryFactory->newSelect();
+<br> $queryFactory ->cols(['*']) ->from('posts');
+<br> $sql = $this->queryFactory->getStatement()
 </li>
 <li>
-$queryFactory->newSelect();<br>
-$queryFactory ->cols(['*']) ->from('users');<br>
-$sql = $this->queryFactory->getStatement()
+$queryFactory->newSelect();
+<br> $queryFactory ->cols(['*']) ->from('users');
+<br> $sql = $this->queryFactory->getStatement()
 </li>
 </ul>
 </li>
 </ul>
 </li>
 <li>
-Методы:
+<b>Методы:</b>
 <ul>
-<li>1) Объявит о построении новой строки SQL: $queryFactory->newSelect()</li>
-<li>2) Возвратит строку "INSERT INTO $table": $queryFactory->insert(string $table)</li>
+<li>Объявит о построении новой строки SQL: $queryFactory->newSelect()</li>
+<li>Возвратит строку "INSERT INTO $table": $queryFactory->insert(string $table)</li>
 <li>
-3) Возвратит строку "($keys) VALUES ($values)": $queryFactory->values(array $data)
+Возвратит строку "($keys) VALUES ($values)": $queryFactory->values(array $data)
 <ul>
 <li>
 Формат параметра:
@@ -140,14 +140,14 @@ $sql = $this->queryFactory->getStatement()
 </ul>
 </li>
 <li>
-Пример запроса:
+<b>Пример запроса:</b>
 <ul>
 <li>
-$this->queryFactory->newSelect();<br>
-$this->queryFactory ->cols(['*']) ->from('posts');<br>
-$sth = $this->pdo->prepare($this->queryFactory->getStatement());<br>
-$sth->execute($this->queryFactory->getBindParams());<br>
-$posts = $sth->fetchAll(PDO::FETCH_ASSOC);
+$this->queryFactory->newSelect();
+<br> $this->queryFactory ->cols(['*']) ->from('posts');
+<br> $sth = $this->pdo->prepare($this->queryFactory->getStatement());
+<br> $sth->execute($this->queryFactory->getBindParams());
+<br> $posts = $sth->fetchAll(PDO::FETCH_ASSOC);
 </li>
 </ul>
 </li>
@@ -171,7 +171,7 @@ $posts = $sth->fetchAll(PDO::FETCH_ASSOC);
 <p><b>5) Подробно о работе с роутом:</b></p>
 <ul>
 <li>
-<p>Добавление роутов:</p>
+<b>Добавление роутов:</b>
 <ul>
 <li>
 Route::addRoute("GET","/home", [$handler, $action]);
@@ -191,7 +191,7 @@ Route::addRoute("GET","/home", [$handler, $action]);
 </ul>
 </li>
 <li>
-<p>Проверка http запроса:</p>
+<b>Проверка http запроса:</b>
 <ul>
 <li>
 $routeInfo = Route::checkQuery($ttpMethod, Helper::prepareQuery($_SERVER['REQUEST_URI']));
