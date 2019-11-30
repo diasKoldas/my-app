@@ -69,12 +69,14 @@
 Пример того как выглядит построения двух строк SQL запросов:
 <ul>
 <li>
-$queryFactory->newSelect();
-<br> $queryFactory ->cols(['*']) ->from('posts');
+$queryFactory->newSelect();<br>
+$queryFactory ->cols(['*']) ->from('posts');<br>
+$sql = $this->queryFactory->getStatement()
 </li>
 <li>
-$queryFactory->newSelect();
-<br> $queryFactory ->cols(['*']) ->from('users');
+$queryFactory->newSelect();<br>
+$queryFactory ->cols(['*']) ->from('users');<br>
+$sql = $this->queryFactory->getStatement()
 </li>
 </ul>
 </li>
