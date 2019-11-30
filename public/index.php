@@ -7,7 +7,7 @@ use MyRoute\Helper;
 use App\controllers\MainController;
 
 Route::addRoute("GET","/", [MainController::class, 'index']);
-Route::addRoute("GET","/home}", [MainController::class, 'home']);
+Route::addRoute("GET","/home", [MainController::class, 'home']);
 Route::addRoute("GET","/about/{user}[/{age:\d+}]", [MainController::class, 'about']);
 Route::addRoute("GET","/posts[/{id:\d+}]", [MainController::class, 'news']);
 
